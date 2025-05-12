@@ -1,14 +1,30 @@
 import { Link } from '@tanstack/react-router'
+import {
+  NavigationMenu,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from './ui/navigation-menu'
+
+type MenuItem = {
+  to: string
+  label: string
+}
+
+const MenuItems: MenuItem[] = [
+  { to: '/', label: 'Home' },
+  { to: '/characters', label: 'Characters' },
+]
 
 export default function Menu() {
   return (
-    <div className="p-2 flex gap-2 border-b-black border-b-2">
-      <Link to="/" className="[&.active]:font-bold">
-        Home
-      </Link>
-      <Link to="/characters" className="[&.active]:font-bold">
-        Characters
-      </Link>
-    </div>
+    <NavigationMenu className="p-2 border-b-1">
+      <NavigationMenuList className="w-screen">
+        {MenuItems.map((item) => (
+          <Link key={item.to} to={item.to} className="[&.active]:font-bold">
+            <NavigationMenuLink>{item.label}</NavigationMenuLink>
+          </Link>
+        ))}
+      </NavigationMenuList>
+    </NavigationMenu>
   )
 }
