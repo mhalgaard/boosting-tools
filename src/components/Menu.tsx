@@ -13,6 +13,7 @@ type MenuItem = {
 const MenuItems: MenuItem[] = [
   { to: '/', label: 'Home' },
   { to: '/characters', label: 'Characters' },
+  { to: '/apply', label: 'Apply as booster' },
 ]
 
 export default function Menu() {

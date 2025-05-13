@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as CharactersImport } from './routes/characters'
+import { Route as ApplyImport } from './routes/apply'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
@@ -19,6 +20,12 @@ import { Route as IndexImport } from './routes/index'
 const CharactersRoute = CharactersImport.update({
   id: '/characters',
   path: '/characters',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ApplyRoute = ApplyImport.update({
+  id: '/apply',
+  path: '/apply',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,6 +46,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/apply': {
+      id: '/apply'
+      path: '/apply'
+      fullPath: '/apply'
+      preLoaderRoute: typeof ApplyImport
+      parentRoute: typeof rootRoute
+    }
     '/characters': {
       id: '/characters'
       path: '/characters'
@@ -53,36 +67,41 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apply': typeof ApplyRoute
   '/characters': typeof CharactersRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apply': typeof ApplyRoute
   '/characters': typeof CharactersRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/apply': typeof ApplyRoute
   '/characters': typeof CharactersRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/characters'
+  fullPaths: '/' | '/apply' | '/characters'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/characters'
-  id: '__root__' | '/' | '/characters'
+  to: '/' | '/apply' | '/characters'
+  id: '__root__' | '/' | '/apply' | '/characters'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApplyRoute: typeof ApplyRoute
   CharactersRoute: typeof CharactersRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApplyRoute: ApplyRoute,
   CharactersRoute: CharactersRoute,
 }
 
@@ -97,11 +116,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/apply",
         "/characters"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/apply": {
+      "filePath": "apply.tsx"
     },
     "/characters": {
       "filePath": "characters.tsx"

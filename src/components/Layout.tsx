@@ -6,7 +6,7 @@ export default function Layout() {
   return (
     <div className="h-screen">
       <Menu />
-      <div className="p-4">
+      <div className="p-4 h-full w-full flex">
         <Outlet />
       </div>
       <TanStackRouterDevtools />
