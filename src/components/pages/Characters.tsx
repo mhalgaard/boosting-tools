@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardTitle } from '../ui/card'
+import { cn } from '@/lib/utils'
 
 type Player = {
   id: number
@@ -162,7 +163,7 @@ export default function Characters() {
             selectedPlayers.map((player) => (
               <Card key={player.id} className="p-3 mb-2">
                 <CardTitle>
-                  <h2 className="text-xl font-bold">{player.name}</h2>
+                  <h2 className="text-lg font-bold">{player.name}</h2>
                 </CardTitle>
                 <CardDescription>
                   <p>Rio Score: {player.rioScore}</p>
@@ -177,25 +178,25 @@ export default function Characters() {
         {players.map((player) => (
           <Card
             key={player.id}
-            className="p-3"
+            className={cn('p-3', {
+              'bg-green-100': selectedPlayers.some((p) => p.id === player.id),
+            })}
             onClick={() => handlePlayerSelection(player)}
           >
             <CardTitle>
-              <h2 className="text-xl font-bold">{player.name}</h2>
+              <h2 className="text-lg font-bold">{player.name}</h2>
             </CardTitle>
             <CardDescription>
               <p>Rio Score: {player.rioScore}</p>
               <p>Discord ID: {player.discordId}</p>
             </CardDescription>
-            <h3 className="text-lg font-semibold">Characters:</h3>
-            <CardContent>
-              <ul className="list-disc">
-                {player.characters.map((character) => (
-                  <li key={character.id}>
-                    {character.class} - {character.ilvl}
-                  </li>
-                ))}
-              </ul>
+            <CardContent className="text-sm">
+              <h3 className="text-md font-semibold">Characters:</h3>
+              {player.characters.map((character) => (
+                <p key={character.id}>
+                  {character.class} - {character.ilvl}
+                </p>
+              ))}
             </CardContent>
           </Card>
         ))}
