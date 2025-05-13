@@ -11,71 +11,132 @@ type Player = {
 
 type Character = {
   id: number
-  name: string
   class: string
+  key: string
   ilvl: number
-  faction: string
-  server: string
-  region: string
+  role: string
   lastUpdated: Date
 }
 
-const dummyData: Player[] = [
+const players: Player[] = [
   {
     id: 1,
-    name: 'Player1',
-    rioScore: 1500,
-    discordId: '123456789',
+    name: 'Thomas',
+    rioScore: 3100,
+    discordId: '98375951871639552',
     characters: [
       {
         id: 1,
-        name: 'Character1',
-        class: 'Warrior',
-        ilvl: 220,
-        faction: 'Alliance',
-        server: 'Server1',
-        region: 'US',
+        class: 'DK',
+        key: 'ROOK',
+        ilvl: 671,
+        role: 'tank',
         lastUpdated: new Date(),
       },
       {
         id: 2,
-        name: 'Character2',
-        class: 'Mage',
-        ilvl: 215,
-        faction: 'Horde',
-        server: 'Server2',
-        region: 'EU',
+        class: 'Warlock',
+        key: 'BREW',
+        ilvl: 668,
+        role: 'dps',
+        lastUpdated: new Date(),
+      },
+      {
+        id: 3,
+        class: 'Paladin',
+        key: 'WORK',
+        ilvl: 666,
+        role: 'heal',
         lastUpdated: new Date(),
       },
     ],
   },
   {
     id: 2,
-    name: 'Player2',
-    rioScore: 1600,
-    discordId: '987654321',
+    name: 'Semedo',
+    rioScore: 3200,
+    discordId: '854373316096688128',
     characters: [
       {
-        id: 3,
-        name: 'Character3',
-        class: 'Druid',
-        ilvl: 230,
-        faction: 'Alliance',
-        server: 'Server3',
-        region: 'US',
+        id: 4,
+        class: 'Shaman',
+        key: 'PSF',
+        ilvl: 669,
+        role: 'heal',
         lastUpdated: new Date(),
       },
       {
-        id: 4,
-        name: 'Character4',
+        id: 5,
         class: 'Paladin',
-        ilvl: 225,
-        faction: 'Horde',
-        server: 'Server4',
-        region: 'EU',
+        key: 'PSF',
+        ilvl: 670,
+        role: 'heal',
+        lastUpdated: new Date(),
+      },
+      {
+        id: 6,
+        class: 'Druid',
+        key: 'ML',
+        ilvl: 670,
+        role: 'heal',
+        lastUpdated: new Date(),
+      },
+      {
+        id: 7,
+        class: 'Evoker',
+        key: 'BREW',
+        ilvl: 668,
+        role: 'dps',
         lastUpdated: new Date(),
       },
     ],
+  },
+  {
+    id: 3,
+    name: 'Mikkel',
+    rioScore: 3200,
+    discordId: '98375787501080576',
+    characters: [
+      {
+        id: 8,
+        class: 'Rogue',
+        key: 'ROOK',
+        ilvl: 672,
+        role: 'dps',
+        lastUpdated: new Date(),
+      },
+      {
+        id: 9,
+        class: 'DH',
+        key: 'ROOK',
+        ilvl: 671,
+        role: 'tank',
+        lastUpdated: new Date(),
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: 'Prang',
+    rioScore: 3200,
+    discordId: '121671738349191171',
+    characters: [
+      {
+        id: 10,
+        class: 'Mage',
+        key: 'PSF',
+        ilvl: 671,
+        role: 'dps',
+        lastUpdated: new Date(),
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: 'Seba',
+    rioScore: 3200,
+    discordId: '169452589111443458',
+    characters: [],
   },
 ]
 
@@ -113,7 +174,7 @@ export default function Characters() {
         </div>
       </div>
       <div className="flex flex-row gap-4">
-        {dummyData.map((player) => (
+        {players.map((player) => (
           <Card
             key={player.id}
             className="p-3"
@@ -131,7 +192,7 @@ export default function Characters() {
               <ul className="list-disc">
                 {player.characters.map((character) => (
                   <li key={character.id}>
-                    {character.name} - {character.class} - {character.ilvl} ilvl
+                    {character.class} - {character.ilvl}
                   </li>
                 ))}
               </ul>
