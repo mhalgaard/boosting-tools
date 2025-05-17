@@ -61,9 +61,7 @@ export default function Characters() {
                         defaultValue={character.role}
                       />
                     </div>
-                    <Button type="submit" loading>
-                      Save
-                    </Button>
+                    <Button type="submit">Save</Button>
                   </Dialog>
                 </div>
               ))}
