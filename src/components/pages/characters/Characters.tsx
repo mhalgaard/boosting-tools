@@ -17,6 +17,7 @@ import healImg from '@/assets/heal.png'
 import dpsImg from '@/assets/dps.png'
 import tankImg from '@/assets/tank.png'
 import { LoaderPinwheel } from 'lucide-react'
+import { capitalize } from 'lodash'
 
 export default function Characters() {
   const { data: characters } = useCharacters()
