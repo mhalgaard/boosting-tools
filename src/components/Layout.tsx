@@ -9,7 +9,7 @@ export default function Layout() {
     <div className="flex">
       <SidebarProvider>
         <Sidebar />
-        <main className="flex flex-col grow">
+        <main className="flex flex-col grow max-w-screen">
           <header className="w-full border-b-1">
             <Menu />
           </header>

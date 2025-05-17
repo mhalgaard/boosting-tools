@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react'
+import { useState, type PropsWithChildren } from 'react'
 import {
   Dialog as ShadcnDialog,
   DialogTrigger,
@@ -12,23 +12,34 @@ type Props = {
   title: string
   description?: string
   trigger?: React.ReactNode
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export default function Dialog({
   title,
   description,
   trigger,
+  open,
+  onOpenChange,
   children,
 }: Props & PropsWithChildren) {
+  const [dialogOpen, setDialogOpen] = useState(open)
+  const handleOpenChange = (open: boolean) => {
+    setDialogOpen(open)
+    if (onOpenChange) {
+      onOpenChange(open)
+    }
+  }
   return (
-    <ShadcnDialog>
+    <ShadcnDialog open={dialogOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger>{trigger}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           {description && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
-        {children}
+        {dialogOpen && children}
       </DialogContent>
     </ShadcnDialog>
   )

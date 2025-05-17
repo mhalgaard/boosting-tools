@@ -1,14 +1,26 @@
 import { db } from '@/firebase'
 import type { Character } from '@/types/character'
-import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+} from 'firebase/firestore'
 
 export async function getCharacters(): Promise<Character[]> {
   try {
     const querySnapshot = await getDocs(collection(db, 'characters'))
-    const characters = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    })) as Character[]
+    const characters = querySnapshot.docs.map((doc) => {
+      const data = doc.data()
+
+      return {
+        id: doc.id,
+        ...data,
+        role: Array.isArray(data.role) ? data.role : [data.role],
+      }
+    }) as Character[]
     return characters
   } catch (error) {
     console.error('Error fetching characters: ', error)
@@ -42,5 +54,15 @@ export async function createCharacter(character: Character) {
     console.log('Document written with ID: ', docRef.id)
   } catch (error) {
     console.error('Error adding document: ', error)
+  }
+}
+
+export async function updateCharacter(character: Character) {
+  try {
+    const docRef = doc(db, 'characters', character.id!)
+    await setDoc(docRef, character)
+    console.log('Document updated with ID: ', docRef.id)
+  } catch (error) {
+    console.error('Error updating document: ', error)
   }
 }

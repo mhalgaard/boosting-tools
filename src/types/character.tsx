@@ -4,7 +4,7 @@ export type Character = {
   class: Class
   key: string
   ilvl: number
-  role: Role
+  role: Role[]
 }
 
 export type CreateCharacterRequest = {
@@ -12,7 +12,7 @@ export type CreateCharacterRequest = {
   class: Class
   key: string
   ilvl: number
-  role: Role
+  role: Role[]
 }
 
 export type Role = 'tank' | 'healer' | 'dps'
