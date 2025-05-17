@@ -28,6 +28,7 @@ export type Class =
   | 'death knight'
   | 'monk'
   | 'demon hunter'
+  | 'warrior'
 export type Key =
   | 'ROOK'
   | 'BREW'

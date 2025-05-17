@@ -72,7 +72,7 @@ export default function Characters() {
           </CardDescription>
           <CardContent className="text-sm cursor-default">
             {player.characterIds?.length === 0 ? (
-              <div className="text-muted">No characters</div>
+              <div className="text-slate-400">No characters</div>
             ) : (
               <>
                 <h3 className="font-bold">Characters</h3>
@@ -94,7 +94,7 @@ export default function Characters() {
                           key={character.id}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <TableCell>{character.class}</TableCell>
+                          <TableCell>{capitalize(character.class)}</TableCell>
                           <TableCell>
                             <div className="flex flex-row gap-1">
                               {character.role.map((x) => getRoleIcon(x))}

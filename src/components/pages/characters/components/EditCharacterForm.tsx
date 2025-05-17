@@ -22,6 +22,21 @@ const roleOptions: SelectOption<Role>[] = [
   { label: 'Healer', value: 'healer' },
 ]
 
+const classOptions: SelectOption<Class>[] = [
+  { label: 'Death Knight', value: 'death knight' },
+  { label: 'Demon Hunter', value: 'demon hunter' },
+  { label: 'Druid', value: 'druid' },
+  { label: 'Hunter', value: 'hunter' },
+  { label: 'Mage', value: 'mage' },
+  { label: 'Monk', value: 'monk' },
+  { label: 'Paladin', value: 'paladin' },
+  { label: 'Priest', value: 'priest' },
+  { label: 'Rogue', value: 'rogue' },
+  { label: 'Shaman', value: 'shaman' },
+  { label: 'Warlock', value: 'warlock' },
+  { label: 'Warrior', value: 'warrior' },
+]
+
 type Props = {
   characterId: string
 }
@@ -44,7 +59,6 @@ export default function EditCharacterForm({ characterId }: Props) {
 
   useEffect(() => {
     if (character) {
-      console.log('role', character.role)
       form.reset({
         class: character.class,
         key: character.key,
@@ -66,8 +80,27 @@ export default function EditCharacterForm({ characterId }: Props) {
     })
   }
 
+  console.log('form', form.getValues())
+  console.log('state', form.formState.errors)
+
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
+      <Controller
+        control={form.control}
+        name="class"
+        render={({ field }) => (
+          <Select
+            {...field}
+            label="Class"
+            options={classOptions}
+            placeholder="Select a class"
+            onChange={(selected) => {
+              field.onChange(selected?.value)
+            }}
+            value={classOptions.find((x) => x.value == field.value)}
+          />
+        )}
+      />
       <Controller
         control={form.control}
         name="role"
