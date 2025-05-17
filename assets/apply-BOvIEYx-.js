@@ -1,0 +1,1 @@
+import{j as e}from"./index-DvrbsM1K.js";const o=function(){return e.jsx("div",{className:"flex flex-row justify-center items-center h-full w-full",children:e.jsx("div",{className:"text-9xl",children:"You were rejected :("})})};export{o as component};
