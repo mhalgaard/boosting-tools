@@ -79,7 +79,7 @@ export default function EditCharacterForm({ characterId }: Props) {
           return (
             <Select
               {...field}
-              label="Role"
+              label="Roles"
               options={roleOptions}
               isMulti
               value={selectedOptions}
