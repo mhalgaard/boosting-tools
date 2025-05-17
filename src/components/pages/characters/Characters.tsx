@@ -54,7 +54,7 @@ export default function Characters() {
   }
 
   return (
-    <div className="flex flex-row gap-4 flex-wrap">
+    <div className="flex flex-row gap-4">
       {players?.map((player) => (
         <Card
           key={player.id}
