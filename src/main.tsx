@@ -26,7 +26,7 @@ if (!rootElement.innerHTML) {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <SelectedPlayersProvider>
-          <RouterProvider router={router} basepath="/boosting-tools/" />
+          <RouterProvider router={router} basepath="/boosting-tools" />
         </SelectedPlayersProvider>
       </QueryClientProvider>
     </StrictMode>,
