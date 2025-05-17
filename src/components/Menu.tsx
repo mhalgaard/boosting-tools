@@ -4,6 +4,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from './ui/navigation-menu'
+import { SidebarTrigger } from './ui/sidebar'
 
 type MenuItem = {
   to: string
@@ -18,12 +19,17 @@ const MenuItems: MenuItem[] = [
 
 export default function Menu() {
   return (
-    <NavigationMenu className="p-2 border-b-1">
-      <NavigationMenuList className="w-screen">
+    <NavigationMenu className="p-2">
+      <NavigationMenuList className="w-full">
+        <SidebarTrigger />
         {MenuItems.map((item) => (
-          <Link key={item.to} to={item.to} className="[&.active]:font-bold">
-            <NavigationMenuLink>{item.label}</NavigationMenuLink>
-          </Link>
+          <div>
+            <Link key={item.to} to={item.to} className="[&.active]:font-bold">
+              <NavigationMenuLink asChild>
+                <div>{item.label}</div>
+              </NavigationMenuLink>
+            </Link>
+          </div>
         ))}
       </NavigationMenuList>
     </NavigationMenu>
