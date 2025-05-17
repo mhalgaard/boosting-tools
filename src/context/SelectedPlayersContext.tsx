@@ -1,4 +1,4 @@
-import type { Player } from '@/firebase/players'
+import type { Player } from '@/types/player'
 import React, { createContext, useContext, useState } from 'react'
 
 type SelectedPlayersContextType = {

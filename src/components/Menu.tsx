@@ -23,13 +23,11 @@ export default function Menu() {
       <NavigationMenuList className="w-full">
         <SidebarTrigger />
         {MenuItems.map((item) => (
-          <div>
-            <Link key={item.to} to={item.to} className="[&.active]:font-bold">
-              <NavigationMenuLink asChild>
-                <div>{item.label}</div>
-              </NavigationMenuLink>
-            </Link>
-          </div>
+          <Link key={item.to} to={item.to} className="[&.active]:font-bold">
+            <NavigationMenuLink asChild>
+              <div>{item.label}</div>
+            </NavigationMenuLink>
+          </Link>
         ))}
       </NavigationMenuList>
     </NavigationMenu>

@@ -1,13 +1,10 @@
-import { Card, CardContent, CardDescription, CardTitle } from '../ui/card'
+import { Card, CardContent, CardDescription, CardTitle } from '../../ui/card'
 import { cn } from '@/lib/utils'
-import { type Player } from '@/firebase/players'
 import { useCharacters } from '@/hooks/useCharacters'
 import { usePlayers } from '@/hooks/usePlayers'
 import { useSelectedPlayers } from '@/context/SelectedPlayersContext'
-import Dialog from '../reusable/Dialog'
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
-import Button from '../reusable/Button'
+import type { Player } from '@/types/player'
+import EditCharacter from './components/EditCharacter'
 
 export default function Characters() {
   const { data: characters } = useCharacters()
@@ -21,6 +18,8 @@ export default function Characters() {
       setSelectedPlayers([...selectedPlayers, player])
     }
   }
+
+  console.log(characters)
 
   return (
     <div className="flex flex-row gap-4">
@@ -53,16 +52,7 @@ export default function Characters() {
                   <div>{character.role}</div>
                   <div>{character.ilvl}</div>
                   <div>{character.key}</div>
-                  <Dialog title="Edit Characters" trigger={<p>Click me</p>}>
-                    <div>
-                      <Label>Role</Label>
-                      <Input
-                        placeholder={'tank, healer or dps'}
-                        defaultValue={character.role}
-                      />
-                    </div>
-                    <Button type="submit">Save</Button>
-                  </Dialog>
+                  <EditCharacter characterId={character.id!} />
                 </div>
               ))}
           </CardContent>

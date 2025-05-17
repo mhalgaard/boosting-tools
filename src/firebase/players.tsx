@@ -1,4 +1,5 @@
 import { db } from '@/firebase'
+import type { Player } from '@/types/player'
 import {
   addDoc,
   collection,
@@ -7,14 +8,6 @@ import {
   getDocs,
   updateDoc,
 } from 'firebase/firestore'
-
-export type Player = {
-  id?: string
-  name: string
-  rioScore: number
-  discordId: string
-  characterIds: string[]
-}
 
 export async function getPlayers(): Promise<Player[]> {
   try {

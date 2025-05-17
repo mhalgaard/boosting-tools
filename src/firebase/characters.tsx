@@ -1,14 +1,6 @@
 import { db } from '@/firebase'
-import { addDoc, collection, getDocs } from 'firebase/firestore'
-
-export type Character = {
-  id?: string
-  playerId?: string
-  class: string
-  key: string
-  ilvl: number
-  role: string
-}
+import type { Character } from '@/types/character'
+import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore'
 
 export async function getCharacters(): Promise<Character[]> {
   try {
@@ -21,6 +13,26 @@ export async function getCharacters(): Promise<Character[]> {
   } catch (error) {
     console.error('Error fetching characters: ', error)
     return []
+  }
+}
+
+export async function getCharacter(id: string): Promise<Character | null> {
+  try {
+    const docRef = doc(db, 'characters', id)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      return {
+        id: docSnap.id,
+        ...docSnap.data(),
+      } as Character
+    } else {
+      console.warn(`Character with ID ${id} not found.`)
+      return null
+    }
+  } catch (error) {
+    console.error('Error fetching character by ID:', error)
+    return null
   }
 }
 

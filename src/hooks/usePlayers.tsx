@@ -1,4 +1,5 @@
-import { getPlayers, updatePlayer, type Player } from '@/firebase/players'
+import { getPlayers, updatePlayer } from '@/firebase/players'
+import type { Player } from '@/types/player'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 export function usePlayers() {
