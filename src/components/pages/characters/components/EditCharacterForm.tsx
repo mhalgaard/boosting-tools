@@ -28,7 +28,7 @@ type Props = {
 
 export default function EditCharacterForm({ characterId }: Props) {
   const { data: character } = useCharacter(characterId)
-  const { mutate: updateCharacter } = useUpdateCharacter()
+  const { mutate: updateCharacter, isPending } = useUpdateCharacter()
 
   console.log(character)
 
@@ -91,7 +91,9 @@ export default function EditCharacterForm({ characterId }: Props) {
           )
         }}
       />
-      <Button type="submit">Save</Button>
+      <Button type="submit" loading={isPending}>
+        Save
+      </Button>
     </form>
   )
 }

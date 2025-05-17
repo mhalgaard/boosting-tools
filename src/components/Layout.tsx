@@ -13,7 +13,7 @@ export default function Layout() {
           <header className="w-full border-b-1">
             <Menu />
           </header>
-          <div className="p-4">
+          <div className="p-4 grow">
             <Outlet />
           </div>
         </main>

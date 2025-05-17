@@ -16,10 +16,11 @@ import {
 import healImg from '@/assets/heal.png'
 import dpsImg from '@/assets/dps.png'
 import tankImg from '@/assets/tank.png'
+import { LoaderPinwheel } from 'lucide-react'
 
 export default function Characters() {
   const { data: characters } = useCharacters()
-  const { data: players } = usePlayers()
+  const { data: players, isPending } = usePlayers()
   const { selectedPlayers, setSelectedPlayers } = useSelectedPlayers()
 
   const handlePlayerSelection = (player: Player) => {
@@ -33,17 +34,24 @@ export default function Characters() {
   const getRoleIcon = (role: string) => {
     switch (role) {
       case 'tank':
-        return <img src={tankImg} alt="Tank" className="w-4 h-4" />
+        return <img key={role} src={tankImg} alt="Tank" className="w-4 h-4" />
       case 'healer':
-        return <img src={healImg} alt="Healer" className="w-4 h-4" />
+        return <img key={role} src={healImg} alt="Healer" className="w-4 h-4" />
       case 'dps':
-        return <img src={dpsImg} alt="DPS" className="w-4 h-4" />
+        return <img key={role} src={dpsImg} alt="DPS" className="w-4 h-4" />
       default:
         return '❓'
     }
   }
 
-  console.log(characters)
+  if (isPending) {
+    return (
+      <div className="flex flex-col gap-2 h-full grow justify-center items-center">
+        <LoaderPinwheel className="animate-spin" size={50} />
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-row gap-4 flex-wrap">
@@ -63,40 +71,46 @@ export default function Characters() {
             <p>Discord ID: {player.discordId}</p>
           </CardDescription>
           <CardContent className="text-sm cursor-default">
-            <h3 className="font-bold">Characters</h3>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="text-left">Class</TableHead>
-                  <TableHead className="text-left">Roles</TableHead>
-                  <TableHead className="text-left">iLvl</TableHead>
-                  <TableHead className="text-left">Key</TableHead>
-                  <TableHead className="text-left">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {characters
-                  ?.filter((character) => character.playerId === player.id)
-                  .map((character) => (
-                    <TableRow
-                      key={character.id}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <TableCell>{character.class}</TableCell>
-                      <TableCell>
-                        <div className="flex flex-row gap-1">
-                          {character.role.map((x) => getRoleIcon(x))}
-                        </div>
-                      </TableCell>
-                      <TableCell>{character.ilvl}</TableCell>
-                      <TableCell>{character.key}</TableCell>
-                      <TableCell className="text-right">
-                        <EditCharacterDialog characterId={character.id!} />
-                      </TableCell>
+            {player.characterIds?.length === 0 ? (
+              <div className="text-muted">No characters</div>
+            ) : (
+              <>
+                <h3 className="font-bold">Characters</h3>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-left">Class</TableHead>
+                      <TableHead className="text-left">Roles</TableHead>
+                      <TableHead className="text-left">iLvl</TableHead>
+                      <TableHead className="text-left">Key</TableHead>
+                      <TableHead className="text-left">Actions</TableHead>
                     </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {characters
+                      ?.filter((character) => character.playerId === player.id)
+                      .map((character) => (
+                        <TableRow
+                          key={character.id}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <TableCell>{character.class}</TableCell>
+                          <TableCell>
+                            <div className="flex flex-row gap-1">
+                              {character.role.map((x) => getRoleIcon(x))}
+                            </div>
+                          </TableCell>
+                          <TableCell>{character.ilvl}</TableCell>
+                          <TableCell>{character.key}</TableCell>
+                          <TableCell className="text-right">
+                            <EditCharacterDialog characterId={character.id!} />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </>
+            )}
           </CardContent>
         </Card>
       ))}
