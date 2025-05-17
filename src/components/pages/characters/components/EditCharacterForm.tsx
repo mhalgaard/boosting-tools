@@ -1,11 +1,12 @@
 import Button from '@/components/reusable/Button'
 import Select, { type SelectOption } from '@/components/reusable/Select'
-import type { Class, Role } from '@/types/character'
+import { classValues, type Class, type Role } from '@/types/character'
 import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { useCharacter, useUpdateCharacter } from '@/hooks/useCharacter'
+import { capitalize } from 'lodash'
 
 const characterSchema = z.object({
   class: z.string().min(1, 'Class is required'),
@@ -22,20 +23,12 @@ const roleOptions: SelectOption<Role>[] = [
   { label: 'Healer', value: 'healer' },
 ]
 
-const classOptions: SelectOption<Class>[] = [
-  { label: 'Death Knight', value: 'death knight' },
-  { label: 'Demon Hunter', value: 'demon hunter' },
-  { label: 'Druid', value: 'druid' },
-  { label: 'Hunter', value: 'hunter' },
-  { label: 'Mage', value: 'mage' },
-  { label: 'Monk', value: 'monk' },
-  { label: 'Paladin', value: 'paladin' },
-  { label: 'Priest', value: 'priest' },
-  { label: 'Rogue', value: 'rogue' },
-  { label: 'Shaman', value: 'shaman' },
-  { label: 'Warlock', value: 'warlock' },
-  { label: 'Warrior', value: 'warrior' },
-]
+const classOptions: SelectOption<Class>[] = classValues
+  .map((className) => ({
+    label: capitalize(className),
+    value: className,
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label))
 
 type Props = {
   characterId: string

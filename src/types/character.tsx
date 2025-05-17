@@ -29,6 +29,24 @@ export type Class =
   | 'monk'
   | 'demon hunter'
   | 'warrior'
+  | 'evoker'
+
+export const classValues: Class[] = [
+  'warlock',
+  'hunter',
+  'mage',
+  'rogue',
+  'priest',
+  'paladin',
+  'druid',
+  'shaman',
+  'death knight',
+  'monk',
+  'demon hunter',
+  'warrior',
+  'evoker',
+]
+
 export type Key =
   | 'ROOK'
   | 'BREW'
